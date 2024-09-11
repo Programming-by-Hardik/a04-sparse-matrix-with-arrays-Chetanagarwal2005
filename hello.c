@@ -34,13 +34,26 @@ int main() {
 void createSparseMatrix(int sparseMatrix[][3], int originalMatrix[][N], int rows, int cols) {
     //WRITE THE FUNCTION DESCRIPTION HERE
     
+ int k = 1; // Start from 1 because sparseMatrix[0] will store dimensions and count
+    sparseMatrix[0][0] = rows;
+    sparseMatrix[0][1] = cols;
 
+    // Count non-zero elements
+    int nonZeroCount = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (originalMatrix[i][j] != 0) {
+                nonZeroCount++;
+                sparseMatrix[k][0] = i;
+                sparseMatrix[k][1] = j;
+                sparseMatrix[k][2] = originalMatrix[i][j];
+                k++;
+            }
+        }
+    }
 
-
-
-
-
-
+    // Set the total number of non-zero elements in the sparseMatrix[0][2]
+    sparseMatrix[0][2] = nonZeroCount;
 
 }
 
@@ -48,14 +61,15 @@ void createSparseMatrix(int sparseMatrix[][3], int originalMatrix[][N], int rows
 void printSparseMatrix(int sparseMatrix[][3], int nonZeroCount) {
     //WRITE THE FUNCTION DESCRIPTION HERE
     
+int rows = sparseMatrix[0][0];
+    int cols = sparseMatrix[0][1];
 
+    printf("Sparse Matrix (dimensions: %dx%d, non-zero elements: %d):\n", rows, cols, nonZeroCount);
+    printf("Row Column Value\n");
 
-
-
-
-
-
-
+    for (int i = 1; i <= nonZeroCount; i++) {
+        printf("%d %d %d\n", sparseMatrix[i][0], sparseMatrix[i][1], sparseMatrix[i][2]);
+    }
 }
 
 //--------------------------------------------------------
